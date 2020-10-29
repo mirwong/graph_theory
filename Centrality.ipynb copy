@@ -1,0 +1,348 @@
+{
+ "cells": [
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Collecting mobilechelonian\n",
+      "  Using cached mobilechelonian-0.5-py2.py3-none-any.whl (94 kB)\n",
+      "Requirement already satisfied: IPython in /opt/anaconda3/lib/python3.7/site-packages (from mobilechelonian) (7.12.0)\n",
+      "Requirement already satisfied: ipywidgets>=7.0.0 in /opt/anaconda3/lib/python3.7/site-packages (from mobilechelonian) (7.5.1)\n",
+      "Requirement already satisfied: pexpect; sys_platform != \"win32\" in /opt/anaconda3/lib/python3.7/site-packages (from IPython->mobilechelonian) (4.8.0)\n",
+      "Requirement already satisfied: pickleshare in /opt/anaconda3/lib/python3.7/site-packages (from IPython->mobilechelonian) (0.7.5)\n",
+      "Requirement already satisfied: pygments in /opt/anaconda3/lib/python3.7/site-packages (from IPython->mobilechelonian) (2.5.2)\n",
+      "Requirement already satisfied: prompt-toolkit!=3.0.0,!=3.0.1,<3.1.0,>=2.0.0 in /opt/anaconda3/lib/python3.7/site-packages (from IPython->mobilechelonian) (3.0.3)\n",
+      "Requirement already satisfied: setuptools>=18.5 in /opt/anaconda3/lib/python3.7/site-packages (from IPython->mobilechelonian) (46.0.0.post20200309)\n",
+      "Requirement already satisfied: traitlets>=4.2 in /opt/anaconda3/lib/python3.7/site-packages (from IPython->mobilechelonian) (4.3.3)\n",
+      "Requirement already satisfied: decorator in /opt/anaconda3/lib/python3.7/site-packages (from IPython->mobilechelonian) (4.4.1)\n",
+      "Requirement already satisfied: jedi>=0.10 in /opt/anaconda3/lib/python3.7/site-packages (from IPython->mobilechelonian) (0.14.1)\n",
+      "Requirement already satisfied: backcall in /opt/anaconda3/lib/python3.7/site-packages (from IPython->mobilechelonian) (0.1.0)\n",
+      "Requirement already satisfied: appnope; sys_platform == \"darwin\" in /opt/anaconda3/lib/python3.7/site-packages (from IPython->mobilechelonian) (0.1.0)\n",
+      "Requirement already satisfied: nbformat>=4.2.0 in /opt/anaconda3/lib/python3.7/site-packages (from ipywidgets>=7.0.0->mobilechelonian) (5.0.4)\n",
+      "Requirement already satisfied: ipykernel>=4.5.1 in /opt/anaconda3/lib/python3.7/site-packages (from ipywidgets>=7.0.0->mobilechelonian) (5.1.4)\n",
+      "Requirement already satisfied: widgetsnbextension~=3.5.0 in /opt/anaconda3/lib/python3.7/site-packages (from ipywidgets>=7.0.0->mobilechelonian) (3.5.1)\n",
+      "Requirement already satisfied: ptyprocess>=0.5 in /opt/anaconda3/lib/python3.7/site-packages (from pexpect; sys_platform != \"win32\"->IPython->mobilechelonian) (0.6.0)\n",
+      "Requirement already satisfied: wcwidth in /opt/anaconda3/lib/python3.7/site-packages (from prompt-toolkit!=3.0.0,!=3.0.1,<3.1.0,>=2.0.0->IPython->mobilechelonian) (0.1.8)\n",
+      "Requirement already satisfied: six in /opt/anaconda3/lib/python3.7/site-packages (from traitlets>=4.2->IPython->mobilechelonian) (1.14.0)\n",
+      "Requirement already satisfied: ipython-genutils in /opt/anaconda3/lib/python3.7/site-packages (from traitlets>=4.2->IPython->mobilechelonian) (0.2.0)\n",
+      "Requirement already satisfied: parso>=0.5.0 in /opt/anaconda3/lib/python3.7/site-packages (from jedi>=0.10->IPython->mobilechelonian) (0.5.2)\n",
+      "Requirement already satisfied: jsonschema!=2.5.0,>=2.4 in /opt/anaconda3/lib/python3.7/site-packages (from nbformat>=4.2.0->ipywidgets>=7.0.0->mobilechelonian) (3.2.0)\n",
+      "Requirement already satisfied: jupyter-core in /opt/anaconda3/lib/python3.7/site-packages (from nbformat>=4.2.0->ipywidgets>=7.0.0->mobilechelonian) (4.6.1)\n",
+      "Requirement already satisfied: tornado>=4.2 in /opt/anaconda3/lib/python3.7/site-packages (from ipykernel>=4.5.1->ipywidgets>=7.0.0->mobilechelonian) (6.0.3)\n",
+      "Requirement already satisfied: jupyter-client in /opt/anaconda3/lib/python3.7/site-packages (from ipykernel>=4.5.1->ipywidgets>=7.0.0->mobilechelonian) (5.3.4)\n",
+      "Requirement already satisfied: notebook>=4.4.1 in /opt/anaconda3/lib/python3.7/site-packages (from widgetsnbextension~=3.5.0->ipywidgets>=7.0.0->mobilechelonian) (6.0.3)\n",
+      "Requirement already satisfied: importlib-metadata; python_version < \"3.8\" in /opt/anaconda3/lib/python3.7/site-packages (from jsonschema!=2.5.0,>=2.4->nbformat>=4.2.0->ipywidgets>=7.0.0->mobilechelonian) (1.5.0)\n",
+      "Requirement already satisfied: pyrsistent>=0.14.0 in /opt/anaconda3/lib/python3.7/site-packages (from jsonschema!=2.5.0,>=2.4->nbformat>=4.2.0->ipywidgets>=7.0.0->mobilechelonian) (0.15.7)\n",
+      "Requirement already satisfied: attrs>=17.4.0 in /opt/anaconda3/lib/python3.7/site-packages (from jsonschema!=2.5.0,>=2.4->nbformat>=4.2.0->ipywidgets>=7.0.0->mobilechelonian) (19.3.0)\n",
+      "Requirement already satisfied: python-dateutil>=2.1 in /opt/anaconda3/lib/python3.7/site-packages (from jupyter-client->ipykernel>=4.5.1->ipywidgets>=7.0.0->mobilechelonian) (2.8.1)\n",
+      "Requirement already satisfied: pyzmq>=13 in /opt/anaconda3/lib/python3.7/site-packages (from jupyter-client->ipykernel>=4.5.1->ipywidgets>=7.0.0->mobilechelonian) (18.1.1)\n",
+      "Requirement already satisfied: jinja2 in /opt/anaconda3/lib/python3.7/site-packages (from notebook>=4.4.1->widgetsnbextension~=3.5.0->ipywidgets>=7.0.0->mobilechelonian) (2.11.1)\n",
+      "Requirement already satisfied: prometheus-client in /opt/anaconda3/lib/python3.7/site-packages (from notebook>=4.4.1->widgetsnbextension~=3.5.0->ipywidgets>=7.0.0->mobilechelonian) (0.7.1)\n",
+      "Requirement already satisfied: Send2Trash in /opt/anaconda3/lib/python3.7/site-packages (from notebook>=4.4.1->widgetsnbextension~=3.5.0->ipywidgets>=7.0.0->mobilechelonian) (1.5.0)\n",
+      "Requirement already satisfied: terminado>=0.8.1 in /opt/anaconda3/lib/python3.7/site-packages (from notebook>=4.4.1->widgetsnbextension~=3.5.0->ipywidgets>=7.0.0->mobilechelonian) (0.8.3)\n",
+      "Requirement already satisfied: nbconvert in /opt/anaconda3/lib/python3.7/site-packages (from notebook>=4.4.1->widgetsnbextension~=3.5.0->ipywidgets>=7.0.0->mobilechelonian) (5.6.1)\n",
+      "Requirement already satisfied: zipp>=0.5 in /opt/anaconda3/lib/python3.7/site-packages (from importlib-metadata; python_version < \"3.8\"->jsonschema!=2.5.0,>=2.4->nbformat>=4.2.0->ipywidgets>=7.0.0->mobilechelonian) (2.2.0)\n",
+      "Requirement already satisfied: MarkupSafe>=0.23 in /opt/anaconda3/lib/python3.7/site-packages (from jinja2->notebook>=4.4.1->widgetsnbextension~=3.5.0->ipywidgets>=7.0.0->mobilechelonian) (1.1.1)\n",
+      "Requirement already satisfied: defusedxml in /opt/anaconda3/lib/python3.7/site-packages (from nbconvert->notebook>=4.4.1->widgetsnbextension~=3.5.0->ipywidgets>=7.0.0->mobilechelonian) (0.6.0)\n",
+      "Requirement already satisfied: entrypoints>=0.2.2 in /opt/anaconda3/lib/python3.7/site-packages (from nbconvert->notebook>=4.4.1->widgetsnbextension~=3.5.0->ipywidgets>=7.0.0->mobilechelonian) (0.3)\n",
+      "Requirement already satisfied: pandocfilters>=1.4.1 in /opt/anaconda3/lib/python3.7/site-packages (from nbconvert->notebook>=4.4.1->widgetsnbextension~=3.5.0->ipywidgets>=7.0.0->mobilechelonian) (1.4.2)\n",
+      "Requirement already satisfied: testpath in /opt/anaconda3/lib/python3.7/site-packages (from nbconvert->notebook>=4.4.1->widgetsnbextension~=3.5.0->ipywidgets>=7.0.0->mobilechelonian) (0.4.4)\n",
+      "Requirement already satisfied: mistune<2,>=0.8.1 in /opt/anaconda3/lib/python3.7/site-packages (from nbconvert->notebook>=4.4.1->widgetsnbextension~=3.5.0->ipywidgets>=7.0.0->mobilechelonian) (0.8.4)\n",
+      "Requirement already satisfied: bleach in /opt/anaconda3/lib/python3.7/site-packages (from nbconvert->notebook>=4.4.1->widgetsnbextension~=3.5.0->ipywidgets>=7.0.0->mobilechelonian) (3.1.0)\n",
+      "Requirement already satisfied: webencodings in /opt/anaconda3/lib/python3.7/site-packages (from bleach->nbconvert->notebook>=4.4.1->widgetsnbextension~=3.5.0->ipywidgets>=7.0.0->mobilechelonian) (0.5.1)\n",
+      "Installing collected packages: mobilechelonian\n",
+      "Successfully installed mobilechelonian-0.5\n",
+      "\u001b[33mWARNING: You are using pip version 20.2.1; however, version 20.2.3 is available.\n",
+      "You should consider upgrading via the '/opt/anaconda3/bin/python -m pip install --upgrade pip' command.\u001b[0m\n"
+     ]
+    }
+   ],
+   "source": [
+    "# Install a pip package in the current Jupyter kernel\n",
+    "import sys\n",
+    "!{sys.executable} -m pip install mobilechelonian"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 14,
+   "metadata": {
+    "scrolled": true
+   },
+   "outputs": [],
+   "source": [
+    "import math\n",
+    "from mobilechelonian import *"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 40,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "class Node(object):\n",
+    "    '''A graph theory node'''\n",
+    "\n",
+    "    def __init__(self, graph, connectedNodes=[], startState=False, center=(0, 0), angle=0):\n",
+    "        self.graph = graph\n",
+    "        self.neighbors = connectedNodes\n",
+    "        self.state = startState\n",
+    "        self.type = \"undirected\" # to allow to extend to directed graphs\n",
+    "        self.center = center\n",
+    "        self.angle_from_origin = angle\n",
+    "\n",
+    "    def __str__(self):\n",
+    "        pass\n",
+    "\n",
+    "    def __eq__(self, other):\n",
+    "        return (self.state == other.get_state())\n",
+    "\n",
+    "    def get_graph(self):\n",
+    "        return self.graph\n",
+    "\n",
+    "    def get_neighbors(self):\n",
+    "        return self.neighbors\n",
+    "\n",
+    "    def get_state(self):\n",
+    "        return self.state\n",
+    "    \n",
+    "    def get_center(self):\n",
+    "        return self.center\n",
+    "    \n",
+    "    def get_angle_from_origin(self):\n",
+    "        return self.angle_from_origin\n",
+    "\n",
+    "    def num_edges(self):\n",
+    "        return len(self.neighbors)\n",
+    "\n",
+    "    def has_edge(self, other):\n",
+    "        if self.type == \"undirected\":\n",
+    "            if other in self.neighbors:\n",
+    "                return True\n",
+    "            else:\n",
+    "                return False\n",
+    "\n",
+    "    def is_connected(self):\n",
+    "        if len(self.neighbors) == (self.graph.get_size()-1):\n",
+    "            return True\n",
+    "        else:\n",
+    "            return False\n",
+    "\n",
+    "    def create_edge(self, other):\n",
+    "        if other not in self.neighbors:\n",
+    "            self.neighbors.append(other)\n",
+    "            other.neighbors.append(self)\n",
+    "            return True\n",
+    "        else:\n",
+    "            return False\n",
+    "        \n",
+    "    def draw_node(self, t, radius=10):\n",
+    "        t.setposition(self.center[0]+radius, self.center[1])\n",
+    "        t.circle(radius)\n",
+    "    \n",
+    "    def toggle_fill(self, t, fillrgb=(255, 203, 5)):\n",
+    "        if t.fillcolor() == (255, 203, 5) and fillrgb != (255, 203, 5):\n",
+    "            color = fillrgb\n",
+    "        elif t.fillcolor() == (255, 255, 255):\n",
+    "            color = fillrgb\n",
+    "        else:\n",
+    "            color = (255, 255, 255)\n",
+    "        t.fillcolor(color)\n",
+    "        t.begin_fill()\n",
+    "        self.draw_node()\n",
+    "        t.end_fill()\n",
+    "\n",
+    "\n",
+    "class Graph(object):\n",
+    "    '''A graph theory graph'''\n",
+    "\n",
+    "    def __init__(self, num_nodes, edges, graph_radius=200):\n",
+    "        self.size = num_nodes\n",
+    "        self.nodes = []\n",
+    "        \n",
+    "        angle_increment = 360/self.size\n",
+    "        current_angle = 0\n",
+    "        for n in range(self.size):\n",
+    "            node_coords = (graph_radius*math.cos(current_angle), graph_radius*math.sin(current_angle))\n",
+    "            self.nodes.append(Node(self, center=node_coords, angle=current_angle))\n",
+    "            current_angle += angle_increment\n",
+    "            \n",
+    "        self.t = Turtle()\n",
+    "        self.t.pencolor('black')\n",
+    "        self.total_radius = graph_radius\n",
+    "        \n",
+    "        for colnum in range(len(edges)):\n",
+    "            for rownum in range(len(edges[colnum])):\n",
+    "                if edges[colnum][rownum] == 1:\n",
+    "                    self.nodes[colnum].create_edge(self.nodes[rownum])\n",
+    "                    \n",
+    "\n",
+    "    def __str__(self):\n",
+    "        pass\n",
+    "\n",
+    "    def get_size(self):\n",
+    "        return self.size\n",
+    "\n",
+    "    def get_nodes(self):\n",
+    "        return self.nodes\n",
+    "\n",
+    "    def is_connected(self):\n",
+    "        if all([node.is_connected() for node in self.nodes]):\n",
+    "            return True\n",
+    "        else:\n",
+    "            return False\n",
+    "        \n",
+    "    def advance(self, steps=1):\n",
+    "        pass\n",
+    "        \n",
+    "    def draw_graph(self, radius=10):\n",
+    "        for node in self.nodes:\n",
+    "            node.draw_node(self.t, radius=radius)\n",
+    "            \n",
+    "            for other in node.get_neighbors():\n",
+    "                if node.get_center()[0] >= other.get_center()[0]:\n",
+    "                    alpha = node.get_angle_from_origin()\n",
+    "                    beta = other.get_angle_from_origin()\n",
+    "                else:\n",
+    "                    alpha = other.get_angle_from_origin()\n",
+    "                    beta = node.get_angle_from_origin()\n",
+    "                angle = 90-(180-alpha+((180-beta)/2))\n",
+    "                self.draw_edge(node.get_center(), other.get_center(), angle, radius)\n",
+    "    \n",
+    "    def draw_edge(self, c1, c2, angle, radius=10):\n",
+    "        self.t.penup()\n",
+    "        self.t.setposition(c1[0], c1[1])\n",
+    "        self.t.heading(angle)\n",
+    "        self.t.forward(radius)\n",
+    "        self.t.pendown()\n",
+    "        self.t.forward(self.total_radius-2*radius)\n",
+    "        self.t.penup()\n",
+    "        self.t.home()\n",
+    "    \n",
+    "    def update_graph(self):\n",
+    "        pass\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 41,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "application/vnd.jupyter.widget-view+json": {
+       "model_id": "507dafea8fd0493d8011d426546d6ac2",
+       "version_major": 2,
+       "version_minor": 0
+      },
+      "text/plain": [
+       "Turtle()"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    }
+   ],
+   "source": [
+    "edges = [[0, 1, 1], [1, 0, 0], [1, 0, 0]]\n",
+    "n = Graph(3, edges)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 42,
+   "metadata": {
+    "scrolled": true
+   },
+   "outputs": [
+    {
+     "ename": "AttributeError",
+     "evalue": "'Turtle' object has no attribute 'heading'",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
+      "\u001b[0;31mAttributeError\u001b[0m                            Traceback (most recent call last)",
+      "\u001b[0;32m<ipython-input-42-e3524a47a40e>\u001b[0m in \u001b[0;36m<module>\u001b[0;34m\u001b[0m\n\u001b[0;32m----> 1\u001b[0;31m \u001b[0mn\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mdraw_graph\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m",
+      "\u001b[0;32m<ipython-input-40-ac34b220ba6c>\u001b[0m in \u001b[0;36mdraw_graph\u001b[0;34m(self, radius)\u001b[0m\n\u001b[1;32m    126\u001b[0m                     \u001b[0mbeta\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mnode\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mget_angle_from_origin\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m    127\u001b[0m                 \u001b[0mangle\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0;36m90\u001b[0m\u001b[0;34m-\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;36m180\u001b[0m\u001b[0;34m-\u001b[0m\u001b[0malpha\u001b[0m\u001b[0;34m+\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;36m180\u001b[0m\u001b[0;34m-\u001b[0m\u001b[0mbeta\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m/\u001b[0m\u001b[0;36m2\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m--> 128\u001b[0;31m                 \u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mdraw_edge\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mnode\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mget_center\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mother\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mget_center\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mangle\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mradius\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m    129\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m    130\u001b[0m     \u001b[0;32mdef\u001b[0m \u001b[0mdraw_edge\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mself\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mc1\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mc2\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mangle\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mradius\u001b[0m\u001b[0;34m=\u001b[0m\u001b[0;36m10\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+      "\u001b[0;32m<ipython-input-40-ac34b220ba6c>\u001b[0m in \u001b[0;36mdraw_edge\u001b[0;34m(self, c1, c2, angle, radius)\u001b[0m\n\u001b[1;32m    131\u001b[0m         \u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mt\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mpenup\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m    132\u001b[0m         \u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mt\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0msetposition\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mc1\u001b[0m\u001b[0;34m[\u001b[0m\u001b[0;36m0\u001b[0m\u001b[0;34m]\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mc1\u001b[0m\u001b[0;34m[\u001b[0m\u001b[0;36m1\u001b[0m\u001b[0;34m]\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m--> 133\u001b[0;31m         \u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mt\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mheading\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mangle\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m    134\u001b[0m         \u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mt\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mforward\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mradius\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m    135\u001b[0m         \u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mt\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mpendown\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+      "\u001b[0;31mAttributeError\u001b[0m: 'Turtle' object has no attribute 'heading'"
+     ]
+    }
+   ],
+   "source": [
+    "n.draw_graph()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 39,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "application/vnd.jupyter.widget-view+json": {
+       "model_id": "4539e739a3574a62af9ed110e154148e",
+       "version_major": 2,
+       "version_minor": 0
+      },
+      "text/plain": [
+       "Turtle()"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "ename": "TypeError",
+     "evalue": "setposition() missing 1 required positional argument: 'y'",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
+      "\u001b[0;31mTypeError\u001b[0m                                 Traceback (most recent call last)",
+      "\u001b[0;32m<ipython-input-39-ae571028911c>\u001b[0m in \u001b[0;36m<module>\u001b[0;34m\u001b[0m\n\u001b[1;32m      1\u001b[0m \u001b[0mturtle\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mTurtle\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m      2\u001b[0m \u001b[0mturtle\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mforward\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;36m10\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m----> 3\u001b[0;31m \u001b[0mturtle\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0msetposition\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;36m300\u001b[0m\u001b[0;34m,\u001b[0m\u001b[0;36m300\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m",
+      "\u001b[0;31mTypeError\u001b[0m: setposition() missing 1 required positional argument: 'y'"
+     ]
+    }
+   ],
+   "source": [
+    "turtle = Turtle()\n",
+    "turtle.forward(10)\n",
+    "turtle.setposition((300,300))"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.7.6"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 4
+}
