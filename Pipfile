@@ -10,6 +10,9 @@ pandas = "*"
 numpy = "*"
 matplotlib = "*"
 jupyter = "*"
+jupyterlab = "*"
+jupyter-lsp = "*"
+networkx = "*"
 
 [requires]
 python_version = "3.8"
